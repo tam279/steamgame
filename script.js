@@ -28,9 +28,9 @@ document
 
 // Variables
 let currentPage = 1;
-const gamesPerPage = 10;
-let totalGames = 0; // Initialize totalGames variable
-
+const gamesPerPage = 20;
+let totalGames = 0;
+let searchTerm = "";
 // Initial Load
 (async () => {
   try {
@@ -51,9 +51,9 @@ let totalGames = 0; // Initialize totalGames variable
 // Functions
 async function loadMoreGames() {
   try {
-    // Fetch the first set of games using the current page and gamesPerPage values
+    // Fetch the next set of games using the current page, gamesPerPage, and search term values
     const games = await fetchData(
-      `${apiUrl}?page=${currentPage}&per_page=${gamesPerPage}`
+      `${apiUrl}?search=${searchTerm}&page=${currentPage}&per_page=${gamesPerPage}`
     );
 
     // Update the totalGames value based on the fetched data
@@ -108,7 +108,7 @@ async function filterByGenre(selectedGenre) {
 
 async function performSearch() {
   currentPage = 1;
-  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+  searchTerm = document.getElementById("searchInput").value.toLowerCase(); // Assign to global variable
 
   try {
     // Fetch the current page of games
@@ -143,6 +143,9 @@ async function loadMoreSearchResults() {
 
       // Increment the currentPage for future requests
       currentPage++;
+
+      // Pass the searchTerm to fetchAndDisplayRemainingPages
+      await fetchAndDisplayRemainingPages(searchTerm, currentPage);
     }
   } catch (error) {
     console.error("Error fetching or displaying game data:", error);
@@ -151,11 +154,16 @@ async function loadMoreSearchResults() {
 
 async function fetchAndDisplayRemainingPages(searchTerm, remainingPages) {
   if (remainingPages > 0) {
-    currentPage++;
+    // Fetch the next page of search results
     const games = await fetchData(
       `${apiUrl}?search=${searchTerm}&page=${currentPage}&per_page=${gamesPerPage}`
     );
+
+    // Display the games from the next page
     displayGames(games.data);
+
+    // Increment the currentPage for future requests
+    currentPage++;
 
     // Recursively call the function for the next page
     await fetchAndDisplayRemainingPages(searchTerm, remainingPages - 1);
@@ -297,7 +305,7 @@ const genres = [
   "Animation & Modeling",
   "Video Production",
   "Casual",
-  "Simulation",
+  "Simulation"
 ];
 
 genres.forEach((genre) => {
