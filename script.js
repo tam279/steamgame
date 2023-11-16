@@ -107,48 +107,21 @@ async function filterByGenre(selectedGenre) {
 }
 
 async function performSearch() {
-  currentPage = 1;
-  searchTerm = document.getElementById("searchInput").value.toLowerCase(); // Assign to global variable
+  searchTerm = document.getElementById("searchInput").value.toLowerCase();
 
   try {
-    // Fetch the current page of games
-    const currentPageGames = await fetchData(
-      `${apiUrl}?page=${currentPage}&per_page=${gamesPerPage}`
+    // Fetch games based on the search term
+    const searchResult = await fetchData(
+      `${apiUrl}?q=${searchTerm}&limit=${gamesPerPage}`
     );
 
-    // Filter the current page's games based on the search term
-    const filteredGames = currentPageGames.data.filter((game) =>
-      game.name.toLowerCase().includes(searchTerm)
-    );
+    // Update the totalGames value based on the fetched data
+    totalGames = searchResult.total;
 
-    totalGames = filteredGames.length;
-    displayGames(filteredGames);
+    // Display the games
+    displayGames(searchResult.data);
   } catch (error) {
     console.error("Error fetching game data:", error);
-  }
-}
-
-async function loadMoreSearchResults() {
-  try {
-    if (currentPage * gamesPerPage <= totalGames) {
-      // Fetch and display the next page of search results
-      const games = await fetchData(
-        `${apiUrl}?search=${searchTerm}&page=${currentPage}&per_page=${gamesPerPage}`
-      );
-
-      console.log("Next Page Games:", games);
-
-      // Display the games from the next page
-      displayGames(games.data);
-
-      // Increment the currentPage for future requests
-      currentPage++;
-
-      // Pass the searchTerm to fetchAndDisplayRemainingPages
-      await fetchAndDisplayRemainingPages(searchTerm, currentPage);
-    }
-  } catch (error) {
-    console.error("Error fetching or displaying game data:", error);
   }
 }
 
