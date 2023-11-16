@@ -1,0 +1,157 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #333;
+    padding: 10px;
+}
+
+nav button {
+    padding: 10px 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    /* Adjusted font size */
+}
+
+#searchContainer {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#searchInput {
+    padding: 10px;
+    width: 60%;
+}
+
+#searchButton {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#viewAllButton,
+#loadMoreButton,
+#featuredGamesButton {
+    padding: 10px;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#viewAllButton,
+#loadMoreButton,
+#featuredGamesButton {
+    padding: 10px;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 5px;
+    /* Adjusted margin */
+}
+
+#viewAllButton:hover,
+#loadMoreButton:hover,
+#featuredGamesButton:hover {
+    background-color: #e0a800;
+}
+
+#gamesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.gameCard {
+    flex: 1 0 250px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 350px;
+    overflow: hidden;
+    /* Prevent images from overflowing */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    #searchInput {
+        width: 100%;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    nav button {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+.genreButton {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.genreButton:hover {
+    background-color: #e0a800;
+}
+
+#featuredGamesButton {
+    padding: 10px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#featuredGamesButton:hover {
+    background-color: #d9534f;
+}
